@@ -30,7 +30,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: 1
-    aniso: 4
+    aniso: 2
     mipBias: -1
     wrapMode: 1
   nPOTScale: 1
@@ -50,7 +50,7 @@ TextureImporter:
   textureType: -1
   buildTargetSettings:
   - buildTarget: Standalone
-    maxTextureSize: 8192
+    maxTextureSize: 4096
     textureFormat: -1
     compressionQuality: 100
     allowsAlphaSplitting: 0

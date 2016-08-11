@@ -18,13 +18,15 @@ public class JumpToEndoscope : MonoBehaviour {
 			GameObject endoCameraObject = GameObject.Find ("Endoscope/Endoscope/EndoscopeCamera");
 			GameObject vrCameraRig = GameObject.Find ("[CameraRig]");
 			GameObject vrCameraEye = GameObject.Find ("[CameraRig]/Camera (eye)");
+			GameObject vrCameraEyeLight = GameObject.Find ("[CameraRig]/Camera (eye)/Spotlight");
 			SteamVR_Render steamVR = GameObject.Find ("[SteamVR]").GetComponent<SteamVR_Render>();
 			if (!insideEndoscope) {
 				vrCameraEye.GetComponent<Camera> ().cullingMask = 1 << LayerMask.NameToLayer ("SeenByEndoOnly");
-				vrCameraRig.transform.position = endoCameraObject.transform.position;
+				vrCameraRig.transform.position = new Vector3(endoCameraObject.transform.position.x, endoCameraObject.transform.position.y - 0.06f, endoCameraObject.transform.position.z);
 				vrCameraRig.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
 
 				steamVR.trackingSpace = Valve.VR.ETrackingUniverseOrigin.TrackingUniverseSeated;
+				vrCameraEyeLight.GetComponent<Light> ().enabled = true;
 
 				insideEndoscope = true;
 			} else {
@@ -34,6 +36,7 @@ public class JumpToEndoscope : MonoBehaviour {
 				vrCameraRig.transform.localScale = new Vector3 (1, 1, 1);
 
 				steamVR.trackingSpace = Valve.VR.ETrackingUniverseOrigin.TrackingUniverseStanding;
+				vrCameraEyeLight.GetComponent<Light> ().enabled = false;
 
 				insideEndoscope = false;
 			}
