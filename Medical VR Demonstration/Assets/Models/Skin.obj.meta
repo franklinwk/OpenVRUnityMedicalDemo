@@ -33,6 +33,7 @@ ModelImporter:
     2300010: default_MeshPart5
     2300012: default_MeshPart6
     2300014: default_MeshPart7
+    2300016: default
     3300000: default_MeshPart0
     3300002: default_MeshPart1
     3300004: default_MeshPart2
@@ -41,6 +42,7 @@ ModelImporter:
     3300010: default_MeshPart5
     3300012: default_MeshPart6
     3300014: default_MeshPart7
+    3300016: default
     4300000: default_MeshPart0
     4300002: default_MeshPart1
     4300004: default_MeshPart2
@@ -49,6 +51,7 @@ ModelImporter:
     4300010: default_MeshPart5
     4300012: default_MeshPart6
     4300014: default_MeshPart7
+    4300016: default
   materials:
     importMaterials: 1
     materialName: 0

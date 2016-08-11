@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class ScrollSlices : VRTK.VRTK_InteractableObject {
+	private SteamVR_Controller.Device controller;
+	private SteamVR_TrackedObject trackedObj;
+
 	public Renderer rend;
 	public Renderer childRend;
 	public int XDim = 585;
@@ -20,7 +23,7 @@ public class ScrollSlices : VRTK.VRTK_InteractableObject {
 
 	public GameObject childSlice;
 
-
+	private float pastzPosition = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +41,9 @@ public class ScrollSlices : VRTK.VRTK_InteractableObject {
 	{
 		base.Grabbed(usingObject);
 		scrollActive = true;
-		print ("grabbed");
+
+		trackedObj = usingObject.GetComponent<SteamVR_TrackedObject> ();
+		controller = SteamVR_Controller.Input((int)trackedObj.index);
 	}
 
 	public override void Ungrabbed(GameObject usingObject)
@@ -51,7 +56,8 @@ public class ScrollSlices : VRTK.VRTK_InteractableObject {
 	// Update is called once per frame
 	void Update () {
 		if (scrollActive) {
-			offset = (int)Mathf.Round ((transform.localPosition.z / sliceOffsetRange) * frames);
+			float zPosition = transform.localPosition.z;
+			offset = (int)Mathf.Round ((zPosition / sliceOffsetRange) * frames);
 			int yCount = (int)Mathf.Floor (offset / columns);
 			int xCount = offset % columns;
 
@@ -61,6 +67,11 @@ public class ScrollSlices : VRTK.VRTK_InteractableObject {
 				childRend.material.SetTextureOffset ("_MainTex", new Vector2 (xCount * textureOffsetX, -yCount * textureOffsetY));
 			}
 
-		}
+			if (controller != null) {
+				controller.TriggerHapticPulse ((ushort)Mathf.FloorToInt(Mathf.Abs (zPosition - pastzPosition) * 1000));
+			}
+
+			pastzPosition = zPosition;
+		} 
 	}
 }
