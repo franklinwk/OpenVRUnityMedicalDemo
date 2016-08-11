@@ -22,7 +22,7 @@ public class JumpToEndoscope : MonoBehaviour {
 			SteamVR_Render steamVR = GameObject.Find ("[SteamVR]").GetComponent<SteamVR_Render>();
 			if (!insideEndoscope) {
 				vrCameraEye.GetComponent<Camera> ().cullingMask = 1 << LayerMask.NameToLayer ("SeenByEndoOnly");
-				vrCameraRig.transform.position = new Vector3(endoCameraObject.transform.position.x, endoCameraObject.transform.position.y - 0.06f, endoCameraObject.transform.position.z);
+				vrCameraRig.transform.position = new Vector3(endoCameraObject.transform.position.x, endoCameraObject.transform.position.y - 0.04f, endoCameraObject.transform.position.z);
 				vrCameraRig.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
 
 				steamVR.trackingSpace = Valve.VR.ETrackingUniverseOrigin.TrackingUniverseSeated;
@@ -40,7 +40,15 @@ public class JumpToEndoscope : MonoBehaviour {
 
 				insideEndoscope = false;
 			}
-
+		}
+		if (insideEndoscope){
+			GameObject vrCameraRig = GameObject.Find ("[CameraRig]");
+			if (Input.GetKeyDown(KeyCode.DownArrow)) {
+				vrCameraRig.transform.position = new Vector3(vrCameraRig.transform.position.x, vrCameraRig.transform.position.y - 0.01f, vrCameraRig.transform.position.z);
+			}
+			else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+				vrCameraRig.transform.position = new Vector3(vrCameraRig.transform.position.x, vrCameraRig.transform.position.y + 0.01f, vrCameraRig.transform.position.z);	
+			}
 		}
 	}
 }
